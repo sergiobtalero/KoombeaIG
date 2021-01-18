@@ -6,9 +6,9 @@ packages:
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher.git
     from: 6.0.1
-  PromiseKit:
-    url: https://github.com/mxcl/PromiseKit
-    from: 6.8.0
+  CouchbaseLiteSwift:
+    url: https://github.com/couchbase/couchbase-lite-ios.git
+    from: 2.8.1
 targets: # The List of our targets
   KoombeaIG:
     type: application
@@ -93,4 +93,4 @@ targets: # The List of our targets
     sources:
       - path: CommonFeatures
     dependencies:
-      - package: PromiseKit
+      - package: CouchbaseLiteSwift
