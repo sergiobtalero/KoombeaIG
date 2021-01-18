@@ -1,0 +1,96 @@
+name: KoombeaIG # The name of the App
+options: # Some general settings for the project
+  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
+  bundleIdPrefix: "com.sdbt"
+packages:
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    from: 6.0.1
+  PromiseKit:
+    url: https://github.com/mxcl/PromiseKit
+    from: 6.8.0
+targets: # The List of our targets
+  KoombeaIG:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      #Sources
+      - path: KoombeaIG
+    postCompileScripts:
+      - path: Scripts/swiftlint.sh
+        name: Run swiftlint
+    dependencies:
+      - target: Domain
+      - target: Injector
+      - target: CommonFeatures
+      - package: Kingfisher
+  KoombeaIGTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: KoombeaIGTests
+    dependencies:
+      - target: KoombeaIG
+      - target: CommonFeatures
+  Data: 
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: Data
+    postCompileScripts:
+      - path: Scripts/swiftlint.sh
+        name: Run swiftlint
+    dependencies:
+      - target: Domain
+      - target: CommonFeatures
+  DataTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DataTests
+    dependencies:
+      - target: Data
+      - target: CommonFeatures
+  Domain:
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: Domain
+    postCompileScripts:
+      - path: Scripts/swiftlint.sh
+        name: Run swiftlint
+    dependencies:
+      - target: CommonFeatures
+  DomainTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DomainTests
+    dependencies:
+      - target: Domain
+      - target: CommonFeatures
+  Injector: 
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: Injector
+    postCompileScripts:
+      - path: Scripts/swiftlint.sh
+        name: Run swiftlint
+    dependencies:
+      - target: Domain
+  CommonFeatures: 
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: CommonFeatures
+    dependencies:
+      - package: PromiseKit
