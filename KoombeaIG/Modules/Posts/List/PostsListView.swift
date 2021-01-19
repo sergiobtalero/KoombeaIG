@@ -12,12 +12,14 @@ import Domain
 struct PostViewModel: Identifiable {
     let id = UUID()
     let headerViewModel: PostHeaderViewModel
+    let imagesURLs: [URL]
     
     init(post: Post) {
         headerViewModel = PostHeaderViewModel(userProfileImageURL: URL(string: post.profilePic),
                                               userName: post.name,
                                               userEmail: post.email,
                                               postDate: post.post?.date ?? "")
+        imagesURLs = post.post?.pics.compactMap { URL(string: $0) } ?? []
     }
 }
 
@@ -31,7 +33,10 @@ struct PostsListView: View {
     
     var body: some View {
         List(viewmodels) { model in
-            PostHeaderView(viewModel: model.headerViewModel)
+            VStack {
+                PostHeaderView(viewModel: model.headerViewModel)
+                ImagesContainerView(urls: model.imagesURLs)
+            }
         }
     }
 }
