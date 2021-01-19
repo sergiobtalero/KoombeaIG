@@ -24,8 +24,8 @@ final class CachedPostsService {
     
     init() {
         do {
-            Database.log.console.level = .debug
-            Database.log.console.domains = .all
+            Database.log.console.level = .none
+            Database.log.console.domains = .query
             database = try Database(name: Constant.dbName)
         } catch {
             fatalError("Error opening database")
