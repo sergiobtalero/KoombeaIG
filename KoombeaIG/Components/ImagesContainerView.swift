@@ -109,7 +109,6 @@ struct ImagesContainerView: View {
 struct ImagesContainerView_Previews: PreviewProvider {
     static var previews: some View {
         ImagesContainerView(urls: [URL(string: "https://mock.koombea.io/pics/pics40.jpg")!,
-                                   URL(string: "https://mock.koombea.io/pics/pics40.jpg")!,
                                    URL(string: "https://mock.koombea.io/pics/pics40.jpg")!])
     }
 }
