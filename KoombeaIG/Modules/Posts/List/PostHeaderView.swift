@@ -17,11 +17,18 @@ struct PostHeaderViewModel {
     init(userProfileImageURL: URL?,
          userName: String,
          userEmail: String,
-         postDate: String) {
+         postDate: Date?) {
         self.userProfileImageURL = userProfileImageURL
         self.userName = userName
         self.userEmail = userEmail
-        self.postDate = postDate
+        
+        if let postDate = postDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            self.postDate = dateFormatter.string(from: postDate)
+        } else {
+            self.postDate = ""
+        }
     }
 }
 
@@ -57,7 +64,7 @@ struct PostHeaderView_Previews: PreviewProvider {
         PostHeaderViewModel(userProfileImageURL: URL(string: "https://mock.koombea.io/profile/profile85.jpg"),
                        userName: "Sergio Bravo",
                        userEmail: "sergio@email.com",
-                       postDate: "Jan 14th 2021")
+                       postDate: nil)
     }
     static var previews: some View {
         PostHeaderView(viewModel: viewModel)

@@ -20,8 +20,10 @@ struct PostDetailEntity: DataEntity {
     }
     
     func toDomain() throws -> PostDetail {
-        PostDetail(id: id,
-                   date: date,
-                   pics: pics)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E MMM d yyyy HH:mm:ss Z"
+        return PostDetail(id: id,
+                          date: dateFormatter.date(from: date),
+                          pics: pics)
     }
 }

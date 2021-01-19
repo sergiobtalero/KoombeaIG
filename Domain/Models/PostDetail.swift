@@ -9,11 +9,11 @@ import Foundation
 
 public struct PostDetail {
     public let id: Int
-    public let date: String
+    public let date: Date?
     public let pics: [String]
     
     public init(id: Int,
-                date: String,
+                date: Date?,
                 pics: [String]) {
         self.id = id
         self.date = date

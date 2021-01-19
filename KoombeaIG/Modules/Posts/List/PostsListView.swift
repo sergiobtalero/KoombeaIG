@@ -18,7 +18,7 @@ struct PostViewModel: Identifiable {
         headerViewModel = PostHeaderViewModel(userProfileImageURL: URL(string: post.profilePic),
                                               userName: post.name,
                                               userEmail: post.email,
-                                              postDate: post.post?.date ?? "")
+                                              postDate: post.post?.date)
         imagesURLs = post.post?.pics.compactMap { URL(string: $0) } ?? []
     }
 }
@@ -44,7 +44,7 @@ struct PostsListView: View {
 struct PostView_Previews: PreviewProvider {
     static var post: Post {
         let detail = PostDetail(id: 66444,
-                                date: "Tue Dec 14 2021 00:11:26 GMT-0500 (Colombia Standard Time)",
+                                date: nil,
                                 pics: ["https://mock.koombea.io/pics/pics40.jpg"])
         return Post(uid: "id",
                     name: "Sergio Bravo",
