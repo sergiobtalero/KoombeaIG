@@ -5,19 +5,21 @@
 //  Created by Sergio David Bravo Talero on 18/01/21.
 //
 
+import Injector
 import Domain
 import UIKit
 
-class PostsListViewController: UIViewController {
-//    var usecase: GetPostsListUseCaseContract?
-    
+final class PostsListViewController: UIViewController {
+    var presenter: PostsListPresenterContract?
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        usecase = PostsInjector.provideGetPostsListUseCase()
-//        usecase?.execute(completion: { [weak self] posts in
-//            guard let posts = posts else {
-//                return
-//            }
-//        })
+        presenter?.viewDidLoad()
+    }
+}
+
+extension PostsListViewController: PostsListViewContract {
+    func renderPosts(_ posts: [Post]) {
+        
     }
 }

@@ -17,7 +17,7 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = PostsListViewController.instantiate(storyboardName: "PostsList")
+        let vc = PostsListBuilder.build()
         navigationController.pushViewController(vc, animated: false)
     }
 }
