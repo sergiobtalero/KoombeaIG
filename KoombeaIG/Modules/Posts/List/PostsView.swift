@@ -18,17 +18,21 @@ struct PostsView: View {
         self.presenter = presenter
     }
     
+    private var viewToPresent: AnyView {
+        switch store.state {
+        case .loading:
+            return AnyView(Text("Loading"))
+        case let .error(message):
+            return AnyView(ErrorView(errorMessage: message))
+        case let .render(posts):
+            return AnyView(PostsListView(posts: posts))
+        }
+    }
+    
     var body: some View {
-        NavigationView { () -> AnyView in
-            switch store.state {
-            case .loading:
-                return AnyView(Text("Loading"))
-            case let .error(message):
-                return AnyView(ErrorView(errorMessage: message))
-            case let .render(posts):
-                print(posts.count)
-                return AnyView(PostView(post: posts.first!))
-            }
+        NavigationView {
+            viewToPresent
+                .navigationBarTitle("Posts")
         }
         .onAppear(perform: { presenter.viewDidLoad() })
     }
@@ -41,9 +45,9 @@ struct PostsView_Previews: PreviewProvider {
         let store = PostsListStore()
         return (presenter: presenter, store: store)
     }
+    
     static var previews: some View {
-        
         PostsView(presenter: dependencies.presenter,
-                      store: dependencies.store)
+                  store: dependencies.store)
     }
 }

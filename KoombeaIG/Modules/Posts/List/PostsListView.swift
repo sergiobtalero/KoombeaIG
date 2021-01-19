@@ -9,7 +9,8 @@ import Kingfisher
 import SwiftUI
 import Domain
 
-struct PostViewModel {
+struct PostViewModel: Identifiable {
+    let id = UUID()
     let headerViewModel: PostHeaderViewModel
     
     init(post: Post) {
@@ -20,16 +21,18 @@ struct PostViewModel {
     }
 }
 
-struct PostView: View {
-    private let viewmodel: PostViewModel
+struct PostsListView: View {
+    private let viewmodels: [PostViewModel]
     public let placeholderImage = UIImage(named: "Portrait_placeholder")!
     
-    public init(post: Post) {
-        viewmodel = PostViewModel(post: post)
+    public init(posts: [Post]) {
+        viewmodels = posts.map { PostViewModel(post: $0) }
     }
     
     var body: some View {
-        PostHeaderView(viewModel: viewmodel.headerViewModel)
+        List(viewmodels) { model in
+            PostHeaderView(viewModel: model.headerViewModel)
+        }
     }
 }
 
@@ -46,6 +49,6 @@ struct PostView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        PostView(post: post)
+        PostsListView(posts: [post, post, post])
     }
 }
