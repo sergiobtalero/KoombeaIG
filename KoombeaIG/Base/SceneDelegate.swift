@@ -5,11 +5,11 @@
 //  Created by Sergio David Bravo Talero on 18/01/21.
 //
 
+import SwiftUI
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -18,12 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             fatalError("Could not load scene")
         }
         
-        let navController = UINavigationController()
-        coordinator = AppCoordinator(navigationController: navController)
-        coordinator?.start()
-        
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navController
-        window?.makeKeyAndVisible()
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = UIHostingController(rootView: PostsListBuilder.buildUI())
+        self.window = window
+        window.makeKeyAndVisible()
     }
 }

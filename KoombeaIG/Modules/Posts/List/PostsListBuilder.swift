@@ -7,14 +7,15 @@
 
 import Foundation
 import Injector
+import SwiftUI
 import UIKit
 
-final class PostsListBuilder {
-    static func build() -> PostsListViewController {
-        let vc = PostsListViewController.instantiate(storyboardName: "PostsList")
+final class PostsListBuilder {    
+    static func buildUI() -> PostsView {
         let presenter = PostsListPresenter(getPostsListUseCase: PostsInjector.provideGetPostsListUseCase())
-        presenter.view = vc
-        vc.presenter = presenter
-        return vc
+        let store = PostsListStore()
+        presenter.view = store
+        return PostsView(presenter: presenter,
+                         store: store)
     }
 }
