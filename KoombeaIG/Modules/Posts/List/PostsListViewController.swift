@@ -15,8 +15,10 @@ class PostsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         usecase = PostsInjector.provideGetPostsListUseCase()
-        usecase?.execute(completion: { posts in
-//            print(posts)
+        usecase?.execute(completion: { [weak self] posts in
+            guard let posts = posts else {
+                return
+            }
         })
     }
 }

@@ -19,3 +19,16 @@ extension Array where Element: DomainTransformable {
         try map { try $0.toDomain() }
     }
 }
+
+extension Encodable {
+    func asDictionary() throws -> [String: Any]? {
+        let data = try JSONEncoder().encode(self)
+        do {
+            let dictionary = try JSONSerialization.jsonObject(with: data,
+                                                              options: .allowFragments) as? [String: Any]
+            return dictionary
+        } catch {
+            throw NSError()
+        }
+    }
+}

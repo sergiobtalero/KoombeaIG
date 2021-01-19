@@ -13,6 +13,12 @@ struct PostDetailEntity: DataEntity {
     let date: String
     let pics: [String]
     
+    enum CodingKeys: String, CodingKey {
+        case id
+        case date
+        case pics
+    }
+    
     func toDomain() throws -> PostDetail {
         PostDetail(id: id,
                    date: date,

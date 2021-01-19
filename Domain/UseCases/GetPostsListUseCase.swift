@@ -25,6 +25,13 @@ public final class GetPostsListUseCase {
 
 extension GetPostsListUseCase: GetPostsListUseCaseContract {
     public func execute(completion: @escaping (_: [Post]?) -> Void) {
-        provider.getPostsList(urlSession: URLSession.shared, completion: completion)
+        if let entities = try? provider.getCachedPostsList() {
+            completion(entities)
+            return
+        }
+        provider.getPostsList(urlSession: URLSession.shared) { [weak self] posts in
+            posts.map { try? self?.provider.savePosts($0) }
+            completion(posts)
+        }
     }
 }
