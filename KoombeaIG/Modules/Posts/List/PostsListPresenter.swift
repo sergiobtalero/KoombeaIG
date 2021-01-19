@@ -20,8 +20,10 @@ final class PostsListPresenter {
 
 extension PostsListPresenter: PostsListPresenterContract {
     func viewDidLoad() {
+        view?.showLoading()
         getPostsListUseCase.execute { [weak self] posts in
             guard let posts = posts else {
+                self?.view?.showError(message: "Could not load posts")
                 return
             }
             self?.posts = posts

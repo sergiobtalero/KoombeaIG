@@ -16,6 +16,8 @@ protocol PostsListContract {
 
 protocol PostsListViewContract: AnyObject {
     func renderPosts(_ posts: [Post])
+    func showError(message: String)
+    func showLoading()
 }
 
 protocol PostsListPresenterContract {

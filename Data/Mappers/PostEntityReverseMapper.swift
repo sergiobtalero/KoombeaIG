@@ -16,9 +16,18 @@ protocol ObjectMapper {
 
 final class PostDetailReverseMapper: ObjectMapper {
     static func map(from input: PostDetail) -> PostDetailEntity {
-        PostDetailEntity(id: input.id,
-                         date: input.date,
-                         pics: input.pics)
+        let dateAsString: String
+        if let date = input.date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            dateAsString = dateFormatter.string(from: date)
+        } else {
+            dateAsString = ""
+        }
+        
+        return PostDetailEntity(id: input.id,
+                                date: dateAsString,
+                                pics: input.pics)
     }
 }
 
