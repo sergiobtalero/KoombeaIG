@@ -11,14 +11,21 @@ import SwiftUI
 struct PostImage: View {
     private let url: URL?
     
+    // MARK: - Initializer
     init(url: URL?) {
         self.url = url
     }
     
+    // MARK: - Body
     var body: some View {
         KFImage(url)
             .resizable()
             .aspectRatio(1, contentMode: .fit)
+            .gesture(
+                TapGesture().onEnded({ _ in
+                    print(url)
+                })
+            )
     }
 }
 
