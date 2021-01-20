@@ -9,14 +9,9 @@ import Injector
 import SwiftUI
 
 struct PostsView: View {
-    var presenter: PostsListPresenterContract
     @ObservedObject var store: PostsListStore
     
-    init(presenter: PostsListPresenterContract,
-         store: PostsListStore) {
-        self.store = store
-        self.presenter = presenter
-    }
+    var presenter: PostsListPresenterContract
     
     private var viewToPresent: AnyView {
         switch store.state {
@@ -25,10 +20,18 @@ struct PostsView: View {
         case let .error(message):
             return AnyView(ErrorView(errorMessage: message))
         case let .render(posts):
-            return AnyView(PostsListView(posts: posts))
+            return AnyView(PostsListView(viewmodels: posts))
         }
     }
     
+    // MARK: - Initializer
+    public init(presenter: PostsListPresenterContract,
+         store: PostsListStore) {
+        self.store = store
+        self.presenter = presenter
+    }
+    
+    // MARK: - Body
     var body: some View {
         NavigationView {
             viewToPresent

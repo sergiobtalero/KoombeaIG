@@ -13,11 +13,13 @@ final class PostsListPresenter {
     private let getPostsListUseCase: GetPostsListUseCaseContract
     private var posts: [Post] = []
     
+    // MARK: - Initializer
     init(getPostsListUseCase: GetPostsListUseCaseContract) {
         self.getPostsListUseCase = getPostsListUseCase
     }
 }
 
+// MARK: - PostsListPresenterContract
 extension PostsListPresenter: PostsListPresenterContract {
     func viewDidLoad() {
         view?.showLoading()
@@ -27,7 +29,9 @@ extension PostsListPresenter: PostsListPresenterContract {
                 return
             }
             self?.posts = posts
-            self?.view?.renderPosts(posts)
+            let viewModels = posts.map { PostViewModel(post: $0) }
+            
+            self?.view?.renderPosts(viewModels)
         }
     }
 }

@@ -22,8 +22,10 @@ struct PostDetailEntity: DataEntity {
     func toDomain() throws -> PostDetail {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E MMM d yyyy HH:mm:ss Z"
+        let picsURL = pics.compactMap { URL(string: $0) }
+        
         return PostDetail(id: id,
                           date: dateFormatter.date(from: date),
-                          pics: pics)
+                          pics: picsURL)
     }
 }

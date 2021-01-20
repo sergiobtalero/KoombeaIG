@@ -12,7 +12,7 @@ final class PostsListStore: ObservableObject {
     enum State {
         case loading
         case error(message: String)
-        case render(posts: [Post])
+        case render(posts: [PostViewModel])
     }
     
     @Published var state: State = .loading
@@ -27,7 +27,7 @@ extension PostsListStore: PostsListViewContract {
         state = .loading
     }
     
-    func renderPosts(_ posts: [Post]) {
+    func renderPosts(_ posts: [PostViewModel]) {
         state = .render(posts: posts)
     }
 }

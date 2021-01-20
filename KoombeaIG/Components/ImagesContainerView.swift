@@ -53,35 +53,25 @@ struct ImagesContainerView: View {
             return AnyView(Text("No photos"))
         case let .singleImage(url):
             return AnyView(
-                KFImage(url)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
+                PostImage(url: url)
             )
         case let .singleRow(leftRowURL, rightRowURL):
             return AnyView(
                 HStack {
-                    KFImage(leftRowURL)
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                    KFImage(rightRowURL)
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
+                    PostImage(url: leftRowURL)
+                    PostImage(url: rightRowURL)
                 }
             )
         case let .twoRows(firstRowURL, urls):
             return AnyView(
                 VStack {
-                    KFImage(firstRowURL)
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
+                    PostImage(url: firstRowURL)
                     
                     if urls.count == 2 {
                         HStack {
                             HStack(spacing: 5) {
                                 ForEach(0..<2) { index in
-                                    KFImage(urls[index])
-                                        .resizable()
-                                        .aspectRatio(1, contentMode: .fit)
+                                    PostImage(url: urls[index])
                                 }
                             }
                         }
@@ -89,9 +79,7 @@ struct ImagesContainerView: View {
                         ScrollView(.horizontal) {
                             HStack(spacing: 5) {
                                 ForEach(0..<urls.count) { index in
-                                    KFImage(urls[index])
-                                        .resizable()
-                                        .aspectRatio(1, contentMode: .fit)
+                                    PostImage(url: urls[index])
                                 }
                             }
                         }.frame(height: 100)

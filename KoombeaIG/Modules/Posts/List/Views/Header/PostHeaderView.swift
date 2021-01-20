@@ -8,42 +8,18 @@
 import Kingfisher
 import SwiftUI
 
-struct PostHeaderViewModel {
-    let userProfileImageURL: URL?
-    let userName: String
-    let userEmail: String
-    let postDate: String
-    
-    init(userProfileImageURL: URL?,
-         userName: String,
-         userEmail: String,
-         postDate: Date?) {
-        self.userProfileImageURL = userProfileImageURL
-        self.userName = userName
-        self.userEmail = userEmail
-        
-        if let postDate = postDate {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, yyyy"
-            self.postDate = dateFormatter.string(from: postDate)
-        } else {
-            self.postDate = ""
-        }
-    }
-}
-
 struct PostHeaderView: View {
     let viewModel: PostHeaderViewModel
     
+    // MARK: - Initializer
     init(viewModel: PostHeaderViewModel) {
         self.viewModel = viewModel
     }
     
+    // MARK: - Body
     var body: some View {
         HStack {
-            KFImage(viewModel.userProfileImageURL)
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
+            PostImage(url: viewModel.userProfileImageURL)
                 .clipShape(Circle())
             VStack(alignment: .leading) {
                 Text(viewModel.userName)
