@@ -12,7 +12,8 @@ import UIKit
 
 final class PostsListBuilder {    
     static func buildUI() -> PostsView {
-        let presenter = PostsListPresenter(getPostsListUseCase: PostsInjector.provideGetPostsListUseCase())
+        let getPostsListUseCase = PostsInjector.provideGetPostsListUseCase()
+        let presenter = PostsListPresenter(getPostsListUseCase: getPostsListUseCase)
         let store = PostsListStore()
         presenter.view = store
         return PostsView(presenter: presenter,

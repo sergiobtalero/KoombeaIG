@@ -25,9 +25,10 @@ final class PostDetailReverseMapper: ObjectMapper {
             dateAsString = ""
         }
         
+        let pics = input.pics.map { $0.absoluteString }
         return PostDetailEntity(id: input.id,
                                 date: dateAsString,
-                                pics: input.pics)
+                                pics: pics)
     }
 }
 
