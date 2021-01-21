@@ -22,12 +22,12 @@ final class GetPostsListUseCaseMock: GetPostsListUseCaseContract {
     }
 }
 
-final class PostsListsStoreMock: PostsListViewContract {
+final class PostsListsStoreMock: PostsListViewContract {    
     var didShowPosts = false
     var didShowError = false
     var didShowLoading = false
     
-    func renderPosts(_ posts: [Post]) {
+    func renderPosts(_ posts: [PostViewModel]) {
         didShowPosts = true
     }
     
